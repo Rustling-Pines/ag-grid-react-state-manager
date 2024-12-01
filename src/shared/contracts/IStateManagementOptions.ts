@@ -1,7 +1,7 @@
 import { IAgGridState } from "./IAgGridState";
 
 /**
- * Author: pradeep.betty@gmail.com
+ * Author: Pradeep <pradeep.betty@gmail.com>
  * CreatedOn: Nov/20/2024
 */
 export interface IStateManagementOptions {

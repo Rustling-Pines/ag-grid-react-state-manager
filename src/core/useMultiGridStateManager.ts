@@ -6,7 +6,7 @@ import { useGridStateManager } from "./useGridStateManager";
 
 /**
  * Hook to manage AG Grid state and provide utility methods.
- * @author pradeep.betty@gmail.com
+ * @author Pradeep <pradeep.betty@gmail.com>
  * @createdOn Nov/20/2024
  */
 export const useMultiGridStateManager = () => {
