@@ -1,4 +1,4 @@
-# StateManger for AgGridReact
+# AgGridReact StateManager
 
 A lightweight utility that captures AG Grid state changes, such as column reordering, sorting, and filtering, and converts them into a JSON format for seamless state persistence and restoration in React applications.
 
@@ -20,7 +20,7 @@ npm install @rustling-pines/ag-grid-react-state-manager
 
 ## USAGE
 
-### SingleGrid Component Scenario
+### Component with a Single Grid Scenario
 
 ```tsx
 import React, { useEffect } from 'react';
@@ -30,20 +30,44 @@ import { useGridStateManager, IAgGridState } from '@rustling-pines/ag-grid-react
 const SingleGridComponent = () => {
 
    const {
-      gridKey, getStateManagementProps,
-      resetGridState, clearGridState, setGridState,
+      gridKey,              // Unique identifier for the grid
+      resetGridState,       // Reset the grid to its default state
+      clearGridState,       // Clear all saved grid states
+      
+      // Get the current grid state as a JSON object;
+      // use this to save to an API or localStorage based on your needs
+      currentGridState,
+
+      // Set the grid's state programmatically from an API or localStorage
+      setGridState,
+
+      // Get the necessary props to manage grid state
+      getStateManagementProps,
+
    } = useGridStateManager({
-      gridKey: 'grid-1', // Unique identifier for the grid
-      defaultGridState: JSON.parse(localStorage.getItem('grid-1') || '{}'), // Optional! Load state from localStorage
-      onStateChange: (key, newState) => { // Optional! Listen for state change events
-         // Save updated state to localStorage
-         localStorage.setItem(key, JSON.stringify(newState));
-         console.log(`Grid [${key}] state changed:`, newState);
+
+      // Unique identifier for the grid
+      gridKey: 'grid-1', 
+
+      // Optional! Load state from localStorage or API
+      defaultGridState: JSON.parse(localStorage.getItem('grid-1') || '{}'),
+
+      // Optional (Method-1): Listen for state change events, ignore this if observing currentState
+      onStateChange: (gridKey, newState) => { 
+         // Persist updated state to localStorage
+         localStorage.setItem(gridKey, JSON.stringify(newState));
+         console.log(`Grid [${gridKey}] state changed:`, newState);
       },
+
    });
 
+   // Optional (Method-2): observe the currentGridState directly (no need to rely solely on onStateChange)
    useEffect(() => {
-      // Ensure grid state is restored on component mount
+      localStorage.setItem(gridKey, JSON.stringify(currentGridState));
+   }, [gridKey, currentGridState]);
+
+   useEffect(() => {
+      // Ensure grid state is restored on component mount from localStorage or API
       const savedState = localStorage.getItem(gridKey);
       if (savedState) {
          setGridState(JSON.parse(savedState) as IAgGridState);
@@ -52,6 +76,7 @@ const SingleGridComponent = () => {
 
    return (
       <div>
+         <button onClick={handleSaveToApi}>Save to Api</button>
          <button onClick={resetGridState}>Reset Grid State</button>
          <button onClick={clearGridState}>Clear Grid State</button>
          <div className="ag-theme-alpine" style={{ width: '100%', height: '400px' }}>
@@ -75,7 +100,7 @@ const SingleGridComponent = () => {
 export default SingleGridComponent;
 ```
 
-### MultiGrid Component Scenario
+### Component with Multiple Grids
 
 ```tsx
 import React from 'react';
