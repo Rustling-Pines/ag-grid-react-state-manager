@@ -11,8 +11,7 @@
   "exports": {
     ".": {
       "import": "./dist/ag-grid-react-state-manager.es.js",
-      "require": "./dist/ag-grid-react-state-manager.umd.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/ag-grid-react-state-manager.umd.js"
     }
   },
   "scripts": {

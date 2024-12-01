@@ -1,18 +1,16 @@
 {
     "compilerOptions": {
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "declaration": true,
+        "declarationMap": true,
+        "emitDeclarationOnly": false,
         "moduleResolution": "Node",
         "target": "ESNext",
         "jsx": "react-jsx",
-        "strict": true,
         "esModuleInterop": true,
-        "skipLibCheck": true,
-        "declaration": true,
-        "declarationMap": true,
-        "outDir": "./dist",
-        "typeRoots": [
-            "./node_modules/@types"
-        ],
-        "types": []
+        "strict": true,
+        "skipLibCheck": true
     },
     "include": [
         "src/**/*"
