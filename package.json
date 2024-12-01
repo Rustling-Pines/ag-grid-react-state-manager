@@ -1,11 +1,13 @@
 {
   "name": "@rustling-pines/ag-grid-react-state-manager",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Utility that captures AG Grid state changes, such as column reordering, sorting, and filtering, and converts them into a JSON format for persistence and restoration.",
   "main": "dist/ag-grid-react-state-manager.umd.js",
   "module": "dist/ag-grid-react-state-manager.es.js",
   "types": "dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": {
       "import": "./dist/ag-grid-react-state-manager.es.js",
