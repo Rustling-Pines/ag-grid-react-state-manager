@@ -1,0 +1,48 @@
+{
+  "name": "@rustling-pines/ag-grid-react-state-manager",
+  "version": "0.0.1",
+  "description": "Utility that captures AG Grid state changes, such as column reordering, sorting, and filtering, and converts them into a JSON format for persistence and restoration.",
+  "main": "dist/ag-grid-react-state-manager.umd.js (main), dist/ag-grid-react-state-manager.es.js (module), dist/index.d.ts (types).",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "npm run clean && vite build && tsc --emitDeclarationOnly && rollup -c rollup.config.dts.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rustling-Pines/ag-grid-react-state-manager.git"
+  },
+  "keywords": [
+    "ag-grid",
+    "state-management",
+    "react",
+    "typescript."
+  ],
+  "author": "pradeep.betty@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Rustling-Pines/ag-grid-react-state-manager/issues"
+  },
+  "homepage": "https://github.com/Rustling-Pines/ag-grid-react-state-manager#readme",
+  "dependencies": {
+    "ag-grid-community": "^32.3.3",
+    "ag-grid-enterprise": "^32.3.3",
+    "ag-grid-react": "^32.3.3",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "peerDependencies": {
+    "ag-grid-community": "^32.3.3",
+    "ag-grid-enterprise": "^32.3.3",
+    "ag-grid-react": "^32.3.3",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "rollup-plugin-dts": "^6.1.1",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.1"
+  }
+}
