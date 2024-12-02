@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback, useRef, useMemo } from 'react';
 import { GridApi } from 'ag-grid-community';
 import { AgGridReactProps } from 'ag-grid-react';
 
@@ -8,21 +8,20 @@ import { IStateManagementOptions } from '../shared/contracts/IStateManagementOpt
 /**
  * Hook to manage AG Grid state and provide utility methods.
  * @author Pradeep <pradeep.betty@gmail.com>
- * @createdOn Nov/20/2024
- */
+ * @createdOn 01/01/2023
+*/
 export const useGridStateManager = ({
    gridKey,
    defaultGridState,
    onStateChange,
 }: IStateManagementOptions) => {
-
-   const [agGridApi, setAgGridApi] = useState<GridApi | undefined>();
+   const agGridApiRef = useRef<GridApi | null>(null); // Use `useRef` for mutable reference
    const [currentGridState, setCurrentGridState] = useState<IAgGridState | undefined>(defaultGridState);
 
    // Handles grid state changes and triggers the `onStateChange` callback
-   const handleGridStateChange = async () => {
+   const handleGridStateChange = useCallback(async () => {
+      const agGridApi = agGridApiRef.current;
       if (agGridApi) {
-
          const newState: IAgGridState = {
             openedToolPanel: agGridApi.getOpenedToolPanel(),
             columnState: agGridApi.getColumnState(),
@@ -36,10 +35,11 @@ export const useGridStateManager = ({
             onStateChange(gridKey, newState);
          }
       }
-   };
+   }, [agGridApiRef, gridKey, onStateChange]);
 
    // Clears all grid state
-   const clearGridState = () => {
+   const clearGridState = useCallback(() => {
+      const agGridApi = agGridApiRef.current;
       if (agGridApi) {
          agGridApi.resetColumnState();
          agGridApi.resetColumnGroupState();
@@ -47,22 +47,22 @@ export const useGridStateManager = ({
          agGridApi.setFilterModel(null);
          agGridApi.setAdvancedFilterModel(null);
 
-         // clear
          setCurrentGridState(undefined);
       }
-   };
+   }, []);
 
    // Resets the grid state to the default
-   const resetGridState = async () => {
+   const resetGridState = useCallback(async () => {
       if (defaultGridState) {
          await setGridState(defaultGridState);
       } else {
          clearGridState();
       }
-   };
+   }, [defaultGridState, clearGridState]);
 
    // Applies the grid state (can be called asynchronously)
-   const setGridState = async (gridState?: IAgGridState) => {
+   const setGridState = useCallback(async (gridState?: IAgGridState) => {
+      const agGridApi = agGridApiRef.current;
       if (agGridApi && gridState) {
          const { openedToolPanel, columnState, filterModel, advancedFilterModel } = gridState;
 
@@ -89,29 +89,24 @@ export const useGridStateManager = ({
 
          setCurrentGridState(gridState);
       }
-   };
+   }, []);
 
    // Wraps internal and user-defined event handlers
-   const wrapEventHandler = (
-      internalHandler: Function,
-      userHandler?: Function
-   ) => {
-      return async (...args: any[]) => {
-         await internalHandler(...args);
-         if (userHandler) {
-            await userHandler(...args);
-         }
-      };
-   };
+   const wrapEventHandler = useCallback(
+      (internalHandler: Function, userHandler?: Function) =>
+         async (...args: any[]) => {
+            await internalHandler(...args);
+            if (userHandler) {
+               await userHandler(...args);
+            }
+         },
+      []);
 
    // Props to pass to AG Grid
-   const getStateManagementProps = (
-      additionalProps?: Partial<AgGridReactProps>
-   ): Partial<AgGridReactProps> => {
-
-      return {
+   const getStateManagementProps = useMemo(
+      () => (additionalProps?: Partial<AgGridReactProps>): Partial<AgGridReactProps> => ({
          onGridReady: wrapEventHandler((e: any) => {
-            setAgGridApi(e.api);
+            agGridApiRef.current = e.api; // Store Grid API in ref
             if (defaultGridState) {
                setGridState(defaultGridState);
             }
@@ -127,13 +122,17 @@ export const useGridStateManager = ({
          onColumnRowGroupChanged: wrapEventHandler(handleGridStateChange, additionalProps?.onColumnRowGroupChanged),
          onColumnValueChanged: wrapEventHandler(handleGridStateChange, additionalProps?.onColumnValueChanged),
          onColumnPivotChanged: wrapEventHandler(handleGridStateChange, additionalProps?.onColumnPivotChanged),
-      };
-   };
+      }),
+      [wrapEventHandler, handleGridStateChange, setGridState, defaultGridState]
+   );
 
    // ---
    return {
-      gridKey, currentGridState,
-      setGridState, resetGridState, clearGridState,
+      gridKey,
+      currentGridState,
+      setGridState,
+      resetGridState,
+      clearGridState,
       getStateManagementProps,
    };
 };

@@ -1,8 +1,8 @@
 import { IAgGridState } from "./IAgGridState";
 
 /**
- * Author: Pradeep <pradeep.betty@gmail.com>
- * CreatedOn: Nov/20/2024
+ * @author Pradeep <pradeep.betty@gmail.com>
+ * @createdOn 01/01/2023
 */
 export interface IStateManagementOptions {
     gridKey: string;

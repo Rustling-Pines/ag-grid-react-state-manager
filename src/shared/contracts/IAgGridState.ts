@@ -1,8 +1,8 @@
 import { AdvancedFilterModel, ColumnState, FilterModel } from "ag-grid-enterprise";
 
 /**
- * Author: Pradeep <pradeep.betty@gmail.com>
- * CreatedOn: Nov/20/2024
+ * @author Pradeep <pradeep.betty@gmail.com>
+ * @createdOn 01/01/2023
 */
 export interface IAgGridState {
     openedToolPanel: string | null;

@@ -1,6 +1,6 @@
 {
   "name": "@rustling-pines/ag-grid-react-state-manager",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Utility that captures AG Grid state changes, such as column reordering, sorting, and filtering, and converts them into a JSON format for persistence and restoration.",
   "main": "dist/ag-grid-react-state-manager.umd.js",
   "module": "dist/ag-grid-react-state-manager.es.js",
@@ -40,11 +40,6 @@
   },
   "homepage": "https://github.com/Rustling-Pines/ag-grid-react-state-manager#readme",
   "dependencies": {
-    "ag-grid-community": "^32.3.3",
-    "ag-grid-enterprise": "^32.3.3",
-    "ag-grid-react": "^32.3.3",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
   },
   "peerDependencies": {
     "ag-grid-community": "^32.3.3",
@@ -54,6 +49,11 @@
     "react-dom": "^18.0.0"
   },
   "devDependencies": {
+    "ag-grid-community": "^32.3.3",
+    "ag-grid-enterprise": "^32.3.3",
+    "ag-grid-react": "^32.3.3",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.4",
