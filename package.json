@@ -39,23 +39,22 @@
     "url": "https://github.com/Rustling-Pines/ag-grid-react-state-manager/issues"
   },
   "homepage": "https://github.com/Rustling-Pines/ag-grid-react-state-manager#readme",
-  "dependencies": {
-  },
+  "dependencies": {},
   "peerDependencies": {
-    "ag-grid-community": "^32.3.3",
-    "ag-grid-enterprise": "^32.3.3",
-    "ag-grid-react": "^32.3.3",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "ag-grid-community": ">=28.0.0",
+    "ag-grid-enterprise": ">=28.0.0",
+    "ag-grid-react": ">=28.0.0",
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   },
   "devDependencies": {
-    "ag-grid-community": "^32.3.3",
-    "ag-grid-enterprise": "^32.3.3",
-    "ag-grid-react": "^32.3.3",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
+    "ag-grid-community": ">=28.0.0",
+    "ag-grid-enterprise": ">=28.0.0",
+    "ag-grid-react": ">=28.0.0",
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0",
+    "@types/react": ">=16.8.0",
+    "@types/react-dom": ">=16.8.0",
     "@vitejs/plugin-react": "^4.3.4",
     "rollup-plugin-dts": "^6.1.1",
     "typescript": "^5.7.2",
